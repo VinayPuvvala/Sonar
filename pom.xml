@@ -66,7 +66,7 @@
 <properties>
 <!-- Optional URL to server. Default value is http://localhost:9000 -->
 <sonar.host.url>
-http://fsrv1otupsjc03fkatst001.fs.local:9000
+http://xxxxxxxxxx:9000
 </sonar.host.url>
 </properties>
 </profile>
@@ -103,4 +103,3 @@ http://fsrv1otupsjc03fkatst001.fs.local:9000
 </build>
 	
 </project>
-
