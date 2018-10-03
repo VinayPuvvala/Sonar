@@ -17,6 +17,11 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+                <dependency>
+                       <groupId>org.sonarsource.scanner.maven</groupId>
+                       <artifactId>sonar-maven-plugin</artifactId>
+                       <version>3.2</version>
+                </dependency>
 			<!-- Demo git -->
 		
 		<dependency>
@@ -51,10 +56,23 @@
 			<name>Snapshot</name>
 			<url>http://107.23.207.158:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
-  	</distributionManagement>
-	
-<build>
-    <plugins>
+  	</distributionManagement>	
+<profiles>
+<profile>
+<id>sonar</id>
+<activation>
+<activeByDefault>true</activeByDefault>
+</activation>
+<properties>
+<!-- Optional URL to server. Default value is http://localhost:9000 -->
+<sonar.host.url>
+http://fsrv1otupsjc03fkatst001.fs.local:9000
+</sonar.host.url>
+</properties>
+</profile>
+</profiles>
+<build> 
+   <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -85,3 +103,4 @@
 </build>
 	
 </project>
+
