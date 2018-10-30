@@ -50,12 +50,15 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                milestone(1)
+                withAWS(credentials:'aws') {
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                     configs: 'sample.yml',
                     enableConfigSubstitution: true
                 )
+                }
             }
+                
         }
     }
 }
