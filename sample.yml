@@ -1,55 +1,59 @@
 {
-   "kind":"Service",
-   "apiVersion":"v1",
+   "kind": "Service",
+   "apiVersion": "v1",
    "metadata":{
-     "name":"mock",
-     "labels":{
-       "app":"mock",
-       "status":"replaced"
-     }
+      "name": "guestbook",
+      "labels":{
+         "app": "guestbook"
+      }
    },
    "spec":{
-     "ports": [{
-       "protocol": "TCP",
-       "port": 3000,
-       "targetPort": 3000
-     }],
-     "selector":{
-       "app":"mock"
-     }
+      "ports": [
+         {
+           "port": 3000,
+           "targetPort": 3000
+         }
+      ],
+      "selector":{
+         "app": "guestbook"
+      },
+      "type": "LoadBalancer"
    }
 }
 {
    "kind":"ReplicationController",
    "apiVersion":"v1",
    "metadata":{
-     "name":"mock",
-     "labels":{
-       "app":"mock",
-       "status":"replaced"
-     }
+      "name":"guestbook",
+      "labels":{
+         "app":"guestbook"
+      }
    },
    "spec":{
-     "replicas":1,
-     "selector":{
-       "app":"mock"
-     },
-     "template":{
-       "metadata":{
-         "labels":{
-           "app":"mock"
+      "replicas":3,
+      "selector":{
+         "app":"guestbook"
+      },
+      "template":{
+         "metadata":{
+            "labels":{
+               "app":"guestbook"
+            }
+         },
+         "spec":{
+            "containers":[
+               {
+                  "name":"guestbook",
+                  "image":"k8s.gcr.io/guestbook:v3",
+                  "ports":[
+                     {
+                        "name":"http-server",
+                        "containerPort":3000
+                     }
+                  ]
+               }
+            ]
          }
-       },
-       "spec":{
-         "containers":[{
-           "name": "mock-container",
-           "image": "k8s.gcr.io/pause:2.0",
-           "ports":[{
-             "containerPort":3000,
-             "protocol":"TCP"
-           }]
-         }]
-       }
-     }
+      }
    }
 }
