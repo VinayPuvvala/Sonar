@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        KUBECONFIG = credentials('kubeconfig')
+        AWS = credentials('aws')
+    }
     stages {
         stage('build') {
             steps {
@@ -50,9 +54,9 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                milestone(1)
-                withAWS(credentials:'aws') {
+                withCredentials(credentials:'$AWS') {
                 kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
+                    kubeconfigId: '$KUBECONFIG',
                     configs: 'sample.yml',
                     enableConfigSubstitution: true
                 )
