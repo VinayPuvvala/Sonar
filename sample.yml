@@ -1,59 +1,46 @@
-{
-   "kind": "Service",
-   "apiVersion": "v1",
-   "metadata":{
-      "name": "guestbook",
-      "labels":{
-         "app": "guestbook"
-      }
-   },
-   "spec":{
-      "ports": [
-         {
-           "port": 3000,
-           "targetPort": 3000
-         }
-      ],
-      "selector":{
-         "app": "guestbook"
-      },
-      "type": "LoadBalancer"
-   }
-}
-{
-   "kind":"ReplicationController",
-   "apiVersion":"v1",
-   "metadata":{
-      "name":"guestbook",
-      "labels":{
-         "app":"guestbook"
-      }
-   },
-   "spec":{
-      "replicas":3,
-      "selector":{
-         "app":"guestbook"
-      },
-      "template":{
-         "metadata":{
-            "labels":{
-               "app":"guestbook"
-            }
-         },
-         "spec":{
-            "containers":[
-               {
-                  "name":"guestbook",
-                  "image":"k8s.gcr.io/guestbook:v3",
-                  "ports":[
-                     {
-                        "name":"http-server",
-                        "containerPort":3000
-                     }
-                  ]
-               }
-            ]
-         }
-      }
-   }
-}
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+spec:
+  selector:
+    matchLabels:
+      app: guestbook
+      tier: frontend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: guestbook
+        tier: frontend
+    spec:
+      containers:
+      - name: php-redis
+        image: gcr.io/google-samples/gb-frontend:v4
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "0.0.0.0/0"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: guestbook
