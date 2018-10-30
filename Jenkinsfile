@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     stages {
-        stage('build') {
+        /*stage('build') {
             steps {
                     withMaven(jdk: 'Java', maven: 'Maven') {
                       sh 'mvn clean compile'
@@ -11,11 +11,11 @@ pipeline {
             }
         
         
-        /*stage('Jacoco') {
+        stage('Jacoco') {
             steps {
                 jacoco()
            }
-       }*/
+       }
         stage('Package') {
             steps {
                       withMaven(jdk: 'Java', maven: 'Maven') {
