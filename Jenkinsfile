@@ -58,7 +58,7 @@ pipeline {
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
             ]]) {
                 kubernetesDeploy(
-                    kubeconfigId: '$KUBECONFIG',
+                    kubeconfigId: 'kubeconfig',
                     configs: 'sample.yml',
                     enableConfigSubstitution: true
                 )
