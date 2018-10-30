@@ -1,9 +1,6 @@
 pipeline {
     agent any
-    environment {
-        KUBECONFIG = credentials('kubeconfig')
-        AWS = credentials('aws')
-    }
+    
     stages {
         stage('build') {
             steps {
@@ -54,7 +51,12 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                milestone(1)
-                withCredentials(credentials:'$AWS') {
+                withCredentials([[
+                $class: 'AmazonWebServicesCredentialsBinding',
+                credentialsId: 'aws',
+                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+            ]]) {
                 kubernetesDeploy(
                     kubeconfigId: '$KUBECONFIG',
                     configs: 'sample.yml',
