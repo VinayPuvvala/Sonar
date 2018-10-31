@@ -49,7 +49,7 @@ pipeline {
         stage('DeployToProduction') {
             
             steps {
-                input 'Deploy to Production?'
+                /*input 'Deploy to Production?'
                milestone(1)
                 withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
@@ -62,7 +62,11 @@ pipeline {
                     configs: 'sample.yml',
                     enableConfigSubstitution: true
                 )
-                }
+                }*/
+                sh '''
+                export PATH=$PATH:/var/lib/jenkins
+                kubectl get nodes
+                '''
             }
                 
         }
