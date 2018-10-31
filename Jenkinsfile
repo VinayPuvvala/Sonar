@@ -73,9 +73,7 @@ pipeline {
                 kubectl get nodes
                 kubectl create -f sample.yml
                 kubectl get svc -w
-                PID=$!
-                sleep 5
-                kill $PID
+                trap INT
                 '''
              }
             
