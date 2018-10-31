@@ -64,7 +64,6 @@ pipeline {
                 )
                 }*/
                 sh '''
-                export PATH=$PATH:/var/lib/jenkins
                 kubectl get nodes
                 '''
             }
