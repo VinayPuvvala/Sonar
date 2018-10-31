@@ -72,7 +72,7 @@ pipeline {
                 export PATH=$PATH:/var/lib/jenkins
                 kubectl get nodes
                 kubectl create -f sample.yml
-                kubetcl get svc
+                kubectl get svc
                 '''
             }
                 
