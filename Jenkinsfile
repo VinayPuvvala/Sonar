@@ -73,8 +73,7 @@ pipeline {
                 kubectl get nodes
                 kubectl create -f sample.yml
                 kubectl get svc -o wide
-                input 'exit ?'
-                milestone(1)
+                
                 kubectl get svc
                 '''
             }
