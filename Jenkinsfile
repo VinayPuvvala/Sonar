@@ -73,14 +73,17 @@ pipeline {
                 kubectl get nodes
                 kubectl create -f sample.yml
                 kubectl get svc -o wide
-                kubectl get svc -o wide
-                kubectl get svc -o wide
-                kubectl get svc -o wide
-                kubectl get svc -o wide
-                
-                kubectl describe svc
                 '''
              }
+            stage('Access Application') {
+            
+            steps {
+                sh '''
+                export PATH=$PATH:/var/lib/jenkins
+                kubectl describe svc
+                '''
+            }
+            }
                 
         }
     }
