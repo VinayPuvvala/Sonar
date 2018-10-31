@@ -2,6 +2,9 @@ pipeline {
     agent any
     
     stages {
+        stage('checkout') {
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/VinayPuvvala/demo.git']]])
+        }
         /*stage('build') {
             steps {
                     withMaven(jdk: 'Java', maven: 'Maven') {
@@ -66,6 +69,7 @@ pipeline {
                 sh '''
                 export PATH=$PATH:/var/lib/jenkins
                 kubectl get nodes
+                kubectl create -f sample.yml
                 '''
             }
                 
