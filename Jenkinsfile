@@ -73,6 +73,7 @@ pipeline {
                 kubectl get nodes
                 kubectl create -f sample.yml
                 kubectl get svc -w
+                timeout(10s)
                 '''
             }
                 
