@@ -73,7 +73,7 @@ pipeline {
                 kubectl get nodes
                 kubectl create -f sample.yml
                 kubectl get svc
-                kubectl get svc
+                exit
                 kubectl get svc
                 '''
             }
