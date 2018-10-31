@@ -73,9 +73,9 @@ pipeline {
                 kubectl get nodes
                 kubectl create -f sample.yml
                 kubectl get svc -o wide
+                kubectl describe svc
                 '''
-                sh 'kubectl get svc'
-            }
+             }
                 
         }
     }
