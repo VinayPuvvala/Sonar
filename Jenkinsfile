@@ -72,8 +72,9 @@ pipeline {
                 export PATH=$PATH:/var/lib/jenkins
                 kubectl get nodes
                 kubectl create -f sample.yml
-                kubectl get svc
-                exit
+                kubectl get svc -w
+                input 'exit ?'
+                milestone(1)
                 kubectl get svc
                 '''
             }
