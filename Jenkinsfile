@@ -72,7 +72,10 @@ pipeline {
                 export PATH=$PATH:/var/lib/jenkins
                 kubectl get nodes
                 kubectl create -f sample.yml
-                kubectl get svc -o wide
+                kubectl get svc -w
+                PID=$!
+                sleep 5
+                kill $PID
                 '''
              }
             
