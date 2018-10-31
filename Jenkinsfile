@@ -72,16 +72,17 @@ pipeline {
                 export PATH=$PATH:/var/lib/jenkins
                 kubectl get nodes
                 kubectl create -f sample.yml
-                '''
-                retry(3) {
-                    sh '''
-                    export PATH=$PATH:/var/lib/jenkins
-                    kubectl get svc
-                    '''
-                }
-                
+                '''                
              }
             
         }
+        stage('Access Application') {
+            steps{
+                sh'''
+                export PATH=$PATH:/var/lib/jenkins
+                kubectl get svc
+                '''
+                }
+                }
     }
 }
