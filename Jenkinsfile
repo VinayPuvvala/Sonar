@@ -75,16 +75,7 @@ pipeline {
                 kubectl get svc -o wide
                 '''
              }
-            stage('Access Application') {
             
-               steps {
-                sh '''
-                export PATH=$PATH:/var/lib/jenkins
-                kubectl describe svc
-                '''
-            }
-            }
-                
         }
     }
-
+}
