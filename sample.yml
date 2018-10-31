@@ -37,7 +37,7 @@ metadata:
     app: guestbook
     tier: frontend
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-external: "0.0.0.0/0"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "0.0.0.0/0"
 spec:
   type: LoadBalancer
   ports:
