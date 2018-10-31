@@ -72,9 +72,8 @@ pipeline {
                 export PATH=$PATH:/var/lib/jenkins
                 kubectl get nodes
                 kubectl create -f sample.yml
-                timeout(time: 10, unit: 'SECONDS') {
                 kubectl get svc -w
-                }
+                timeout(time: 10, unit: 'SECONDS')
                 kubectl get svc
                 '''
             }
