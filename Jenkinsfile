@@ -72,9 +72,14 @@ pipeline {
                 export PATH=$PATH:/var/lib/jenkins
                 kubectl get nodes
                 kubectl create -f sample.yml
-                kubectl get svc -w
-                trap signal 2
                 '''
+                retry(3) {
+                    sh '''
+                    export PATH=$PATH:/var/lib/jenkins
+                    kubectl get svc
+                    '''
+                }
+                
              }
             
         }
