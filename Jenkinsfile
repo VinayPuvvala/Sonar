@@ -73,7 +73,7 @@ pipeline {
                 kubectl get nodes
                 kubectl create -f sample.yml
                 kubectl get svc -w
-                trap INT
+                trap signal 2
                 '''
              }
             
